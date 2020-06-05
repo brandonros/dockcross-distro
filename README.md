@@ -21,4 +21,4 @@ cat build-image.sh | docker \
 
 ### Boot disk.qcow2
 
-2. `qemu-system-x86_64 -m 1024 -hda disk.qcow2`
+`qemu-system-x86_64 -m 1024 -hda disk.qcow2`

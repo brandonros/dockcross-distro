@@ -70,7 +70,7 @@ cat > /mnt/etc/init.d/rcS <<EOF
 /bin/mount -a
 /sbin/ifconfig lo 127.0.0.1 netmask 255.0.0.0
 /sbin/ifconfig eth0 up
-/sbin/udhcpc -i eth0
+/sbin/ifconfig eth0 10.0.2.15
 /sbin/route add default gw 10.0.2.2
 EOF
 chmod +x /mnt/etc/init.d/rcS
@@ -95,6 +95,10 @@ audio:x:11:
 video:x:12:
 utmp:x:13:
 usb:x:14:
+EOF
+# create resolv file
+cat > /mnt/etc/resolv.conf <<EOF
+nameserver 8.8.8.8
 EOF
 # unmount raw image
 umount /mnt
