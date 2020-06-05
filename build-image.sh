@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-
 # update sources
 apt-get update
 # install dependencies
