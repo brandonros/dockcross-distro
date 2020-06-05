@@ -18,7 +18,9 @@ parted -s -a none $IMG_RAW set 1 boot on
 # install MBR
 dd if=/usr/lib/syslinux/mbr/mbr.bin of=$IMG_RAW conv=notrunc bs=440 count=1
 # format filesystem
-kpartx -av $IMG_RAW
+KPARTX_RESULT=$(kpartx -av $IMG_RAW)
+echo "$KPARTX_RESULT"
+exit 1
 mke2fs -t ext4 /dev/mapper/loop0p1
 # mount raw image as filesystem
 mount /dev/mapper/loop0p1 /mnt
