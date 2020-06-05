@@ -18,12 +18,10 @@ parted -s -a none $IMG_RAW set 1 boot on
 # install MBR
 dd if=/usr/lib/syslinux/mbr/mbr.bin of=$IMG_RAW conv=notrunc bs=440 count=1
 # format filesystem
-KPARTX_RESULT=$(kpartx -av $IMG_RAW)
-echo "$KPARTX_RESULT"
-exit 1
-mke2fs -t ext4 /dev/mapper/loop0p1
+LOOP_PARTITION=$(kpartx -av $IMG_RAW | sed -nE 's/.*(loop.p1).*/\1/p')
+mke2fs -t ext4 /dev/mapper/$LOOP_PARTITION
 # mount raw image as filesystem
-mount /dev/mapper/loop0p1 /mnt
+mount /dev/mapper/$LOOP_PARTITION /mnt
 # install extlinux
 mkdir /mnt/boot
 extlinux --install /mnt/boot
